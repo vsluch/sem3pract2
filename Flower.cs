@@ -9,9 +9,9 @@ namespace pract2
 {
     public class Flower : Plant
     {
-        private short quantity;
-        public FlowerColor Color {  get; set; }
-        public BloomingSeason Blooming_Season {  get; set; }
+        private short quantity;                                 // количество лепестков
+        public FlowerColor Color {  get; set; }                 // цвет 
+        public BloomingSeason Blooming_Season {  get; set; }    // сезон цветения
 
         // константное поле
         public const short MAX_QUANTITY = 500;
