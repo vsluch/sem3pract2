@@ -9,24 +9,51 @@ public class Programm
     {
         Garden garden = new Garden();
 
-        MenuFunctions.printMainMenu();
-        int choice = MenuFunctions.choiceMenu(4);
-
-
-        switch (choice)
+        while (true)
         {
-            case 1:
-                MenuFunctions.addToGarden(garden);
-                garden.ShowPlants();
-                break;
+            MenuFunctions.printMainMenu();
+            int choice = MenuFunctions.choiceMenu(5);
 
-            case 3:
-                garden.ShowPlants();
-                break;
 
-            default:
-                Console.WriteLine("Неизвестная ошибка");
-                break;
+            switch (choice)
+            {
+                case 1:
+                    MenuFunctions.addToGarden(garden);
+                    break;
+                case 2:
+                    MenuFunctions.deleteFromGarden(garden);
+                    break;
+
+                case 3:
+                    garden.ShowPlants();
+                    break;
+
+                case 4:
+                    Garden onlyFlowers = WorkingWithObject.onlyFlowers(garden);
+                    int selectedIndex;
+                    try
+                    {
+                        selectedIndex = WorkingWithObject.selectObjectIndex(onlyFlowers);
+                        WorkingWithObject.printFlowerMenu();
+                        WorkingWithObject.workWithFlower(garden, selectedIndex);
+                        break;
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine($"Ошибка: {ex.Message}");
+                        break;
+                    }
+                    
+                    
+
+                case 5:
+                    Console.WriteLine("Завершение работы программы...");
+                    return;
+
+                default:
+                    Console.WriteLine("Неизвестная ошибка");
+                    break;
+            }
         }
     }
 }

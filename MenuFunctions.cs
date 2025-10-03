@@ -16,7 +16,8 @@ namespace pract2
             Console.WriteLine("1. Добавление растения в сад");
             Console.WriteLine("2. Удаление растения из сада");
             Console.WriteLine("3. Просмотр сада");
-            Console.WriteLine("4. Выход");
+            Console.WriteLine("4. Работа с отдельным растением");
+            Console.WriteLine("5. Выход");
             Console.Write("Выберите действие (цифру): ");
         }
 
@@ -206,6 +207,22 @@ namespace pract2
                     Console.WriteLine("Некорректный ввод. Попробуйте снова");
             }
             return quantity;
+        }
+
+
+        public static void deleteFromGarden(Garden garden)
+        {
+            garden.ShowPlantsWithNumbers();
+            if(garden.getPlants() == null || garden.getPlants().Count == 0)
+            {
+                Console.WriteLine("Удаление невозможно.\n");
+                return;
+            }
+
+            Console.WriteLine("Выберите растение для удаления (номер): ");
+            int deletedObject = MenuFunctions.choiceMenu((short)garden.getPlants().Count);
+            garden.removePlant(garden.getPlants()[deletedObject - 1]);
+            Console.WriteLine($"Растение под номером {deletedObject} удалено.\n");
         }
     }
 }
