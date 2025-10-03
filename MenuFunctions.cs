@@ -91,7 +91,7 @@ namespace pract2
                 if (int.TryParse(input, out height))
                     break;
                 else
-                    Console.WriteLine("Неверный ввод. Попробуйте снова");
+                    Console.Write("Неверный ввод. Попробуйте снова: ");
             }
 
             Console.Write("Введите диаметр: ");
@@ -102,7 +102,7 @@ namespace pract2
                 if (int.TryParse(input, out diametr))
                     break;
                 else
-                    Console.WriteLine("Неверный ввод. Попробуйте снова");
+                    Console.Write("Неверный ввод. Попробуйте снова: ");
             }
 
             Size size = new Size(height, diametr);
@@ -210,6 +210,7 @@ namespace pract2
         }
 
 
+        // удаление из сада
         public static void deleteFromGarden(Garden garden)
         {
             garden.ShowPlantsWithNumbers();
@@ -218,9 +219,13 @@ namespace pract2
                 Console.WriteLine("Удаление невозможно.\n");
                 return;
             }
+            Console.WriteLine($"{garden.getPlants().Count + 1}. Выйти в главное меню");
 
-            Console.WriteLine("Выберите растение для удаления (номер): ");
-            int deletedObject = MenuFunctions.choiceMenu((short)garden.getPlants().Count);
+            Console.Write("Выберите растение для удаления (номер): ");
+            int deletedObject = MenuFunctions.choiceMenu((short)(garden.getPlants().Count + 1));
+            if (deletedObject == garden.getPlants().Count + 1)      // для выхода
+                return;
+
             garden.removePlant(garden.getPlants()[deletedObject - 1]);
             Console.WriteLine($"Растение под номером {deletedObject} удалено.\n");
         }

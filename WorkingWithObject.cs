@@ -8,6 +8,7 @@ namespace pract2
 {
     public static class WorkingWithObject
     {
+        // создание сада только из цветов
         public static Garden onlyFlowers(Garden garden)
         {
             Garden onlyFlowersGarden = new Garden();
@@ -20,6 +21,7 @@ namespace pract2
         }
 
 
+        // выбор объекта, с которым будет работать
         public static int selectObjectIndex(Garden onlyFlowers)
         {
             onlyFlowers.ShowPlantsWithNumbers();
@@ -48,6 +50,7 @@ namespace pract2
         }
 
 
+        // работа с цветком
         public static void workWithFlower(Garden garden, int flower_index)
         {
             Console.Write("Выберите действие: ");
