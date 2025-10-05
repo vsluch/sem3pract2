@@ -8,12 +8,24 @@ namespace pract2
 {
     public class Bush : Plant
     {
-        public Bush() 
+        public Bush()
         {
             type = FlowerType.Rose;
             size = new Size(40, 40);
         }
-        public Bush(FlowerType _type, Size _size) : base(_type, _size) { }
+        public Bush(FlowerType _type, Size _size)
+        {
+            size = _size;
+            if(_type == FlowerType.Rose || _type == FlowerType.Peony)
+            {
+                type = _type;
+            }
+            else
+            {
+                Console.WriteLine($"{_type} не является кустом. Установлено значение по умолчанию (Rose)");
+                type = FlowerType.Rose;
+            }
+        }
 
 
         public override string ToString()

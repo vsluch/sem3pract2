@@ -31,11 +31,22 @@ namespace pract2
         
 
         
-        public Flower(FlowerType type, Size size, short quantity, FlowerColor color, BloomingSeason bloomingSeason) : base(type, size)
+        public Flower(FlowerType type, Size size, short quantity, FlowerColor color, BloomingSeason bloomingSeason)
         {
+            this.size = size;
             Quantity = quantity;
             Color = color;
             Blooming_Season = bloomingSeason;
+
+            if(type == FlowerType.Tulip || type == FlowerType.Orchid || type == FlowerType.Lily)
+            {
+                this.type = type;
+            }
+            else
+            {
+                Console.WriteLine($"{type} не является цветком. Установлено значение по умолчанию (Tulip)");
+                this.type = FlowerType.Tulip;
+            }
         }
 
         public Flower() : base()
@@ -61,10 +72,6 @@ namespace pract2
 
 
 
-        public FlowerType getFlowerType()
-        {
-            return type;
-        }
         public FlowerColor getFlowerColor()
         {
             return Color;
@@ -89,18 +96,17 @@ namespace pract2
                 Console.WriteLine("Насладиться ароматом не получится, цветок срезан");
                 return;
             }
+            else if(Quantity == 0)
+            {
+                Console.WriteLine("Насладиться ароматом не получится, у цветка нет лепестков");
+                return;
+            }
 
             Console.Write("*Вдохнул аромат ");
-            switch(type)
+            switch (type)
             {
                 case FlowerType.Lily:
                     Console.Write("лилии");
-                    break;
-                case FlowerType.Peony:
-                    Console.Write("пионов");
-                    break;
-                case FlowerType.Rose:
-                    Console.Write("розы");
                     break;
                 case FlowerType.Orchid:
                     Console.Write("орхидеи");
@@ -128,7 +134,7 @@ namespace pract2
         // узнать, как ухаживать
         public static void FlowerInfo(FlowerType type)
         {
-            if (type == FlowerType.Lily || type == FlowerType.Rose || type == FlowerType.Peony)
+            if (type == FlowerType.Lily || type == FlowerType.Orchid)
             {
                 Console.WriteLine("Как ухаживать: поливать 1 раз в неделю");
             }

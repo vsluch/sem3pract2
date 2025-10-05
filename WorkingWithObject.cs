@@ -24,13 +24,13 @@ namespace pract2
         // выбор объекта, с которым будет работать
         public static int selectObjectIndex(Garden onlyFlowers)
         {
-            onlyFlowers.ShowPlantsWithNumbers();
             if(onlyFlowers.getPlants().Count() == 0)
             {
-                throw new Exception("Сад пуст");
+                throw new Exception("В саду нет цветов");
             }
+            onlyFlowers.ShowPlantsWithNumbers();
 
-            Console.WriteLine("Выберите цветок для работы с ним: ");
+            Console.Write("Выберите цветок для работы с ним: ");
             int selectedObjectIndex = MenuFunctions.choiceMenu((short)onlyFlowers.getPlants().Count) - 1;
             return selectedObjectIndex;
         }
@@ -59,7 +59,7 @@ namespace pract2
             switch (selectedAction)
             {
                 case 1:
-                    Console.WriteLine($"Свойства цветка: \n{garden.getPlants()[flower_index].ToString()}");
+                    Console.WriteLine($"Свойства цветка: \n{((Flower)garden.getPlants()[flower_index]).ToString()}");
                     break;
 
                 case 2:
@@ -71,6 +71,11 @@ namespace pract2
                     break;
 
                 case 4:
+                    if (((Flower)garden.getPlants()[flower_index]).Quantity == 0)
+                    {
+                        Console.WriteLine("У цветка нет лепестков, срывать нечего");
+                        break;
+                    }
                     Console.Write("Введите количество срываемых лепестков: ");
                     short removedPetals = (short)MenuFunctions.choiceMenu((short)((Flower)garden.getPlants()[flower_index]).Quantity);
                     garden.getPlants()[flower_index] = ((Flower)garden.getPlants()[flower_index]) - removedPetals;

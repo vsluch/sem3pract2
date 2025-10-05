@@ -16,7 +16,7 @@ namespace pract2
             Console.WriteLine("1. Добавление растения в сад");
             Console.WriteLine("2. Удаление растения из сада");
             Console.WriteLine("3. Просмотр сада");
-            Console.WriteLine("4. Работа с отдельным растением");
+            Console.WriteLine("4. Работа с отдельным цветком");
             Console.WriteLine("5. Выход");
             Console.Write("Выберите действие (цифру): ");
         }
@@ -30,7 +30,7 @@ namespace pract2
                 if (int.TryParse(input, out choice) && choice >= 1 && choice <= numberOptions)
                     break;
                 else
-                    Console.WriteLine("Неверный ввод. Попробуйте снова");      
+                    Console.Write("Неверный ввод. Попробуйте снова: ");      
             }
             return choice;
         }
@@ -44,18 +44,20 @@ namespace pract2
             Console.Write("Выберите действие (цифру): ");
             int addChoice = MenuFunctions.choiceMenu(3);
 
-            FlowerType flower_type = MenuFunctions.choosingFlowerType();
+            FlowerType flower_type;
             Size size = MenuFunctions.sizing();
 
             switch (addChoice)
             {
                 case 1:
+                    flower_type = MenuFunctions.choosingFlowerType();
                     Plant new_plant = new Plant(flower_type, size);
                     garden.addPlant(new_plant);
                     Console.WriteLine($"Растение {flower_type} добавлено в сад");
                     break;
 
                 case 2:
+                    flower_type = MenuFunctions.choosingFlowerTypeForFlower();
                     FlowerColor color = MenuFunctions.choosingColor();
                     BloomingSeason blooming_season = MenuFunctions.choosingBloomingSeason();
                     short quantity = MenuFunctions.establishingQuantity();
@@ -66,9 +68,10 @@ namespace pract2
                     break;
 
                 case 3:
+                    flower_type = MenuFunctions.choosingFlowerTypeForBush();
                     Bush new_bush = new Bush(flower_type, size);
                     garden.addPlant(new_bush);
-                    Console.WriteLine($"Куст {flower_type} добавлен в сад");
+                    Console.WriteLine($"Куст {new_bush.getFlowerType()} добавлен в сад");
                     break;
 
                 default:
@@ -83,26 +86,26 @@ namespace pract2
         // выбор размеров
         public static Size sizing()
         {
-            Console.Write("Введите высоту: ");
+            Console.Write("Введите высоту в сантиметрах: ");
             int height;
             while (true)
             {
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out height))
+                if (int.TryParse(input, out height) && height > 0 && height <= 200)
                     break;
                 else
-                    Console.Write("Неверный ввод. Попробуйте снова: ");
+                    Console.Write("Неверный ввод. Попробуйте снова (целое число от 1 до 200): ");
             }
 
-            Console.Write("Введите диаметр: ");
+            Console.Write("Введите диаметр в сантиметрах: ");
             int diametr;
             while (true)
             {
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out diametr))
+                if (int.TryParse(input, out diametr) && diametr > 0 && diametr <= 1000)
                     break;
                 else
-                    Console.Write("Неверный ввод. Попробуйте снова: ");
+                    Console.Write("Неверный ввод. Попробуйте снова (целое число от 1 до 100): ");
             }
 
             Size size = new Size(height, diametr);
@@ -135,6 +138,47 @@ namespace pract2
                     return FlowerType.Peony;
                 default:
                     Console.WriteLine("Неизвестная ошибка. Установлено значение Rose");
+                    return FlowerType.Rose;
+            }
+        }
+
+        public static FlowerType choosingFlowerTypeForFlower()
+        {
+            Console.WriteLine("\n1. Тюльпан");
+            Console.WriteLine("2. Орхидея");
+            Console.WriteLine("3. Лилия");
+            Console.Write("Выберите тип цветка: ");
+            int typeChoice = MenuFunctions.choiceMenu(3);
+
+            switch (typeChoice)
+            {
+                case 1:
+                    return FlowerType.Tulip;
+                case 2:
+                    return FlowerType.Orchid;
+                case 3:
+                    return FlowerType.Lily;
+                default:
+                    Console.WriteLine("Неизвестная ошибка. Установлено значение по умолчанию (Tulip)");
+                    return FlowerType.Tulip;
+            }
+        }
+
+        public static FlowerType choosingFlowerTypeForBush()
+        {
+            Console.WriteLine("\n1. Роза");
+            Console.WriteLine("2. Пион");
+            Console.Write("Выберите тип куста: ");
+            int typeChoice = MenuFunctions.choiceMenu(2);
+
+            switch (typeChoice)
+            {
+                case 1:
+                    return FlowerType.Rose;
+                case 2:
+                    return FlowerType.Peony;
+                default:
+                    Console.WriteLine("Неизвестная ошибка. Установлено значение по умолчанию (Rose)");
                     return FlowerType.Rose;
             }
         }
@@ -201,10 +245,10 @@ namespace pract2
             {
                 Console.Write("Введите количество лепестков: ");
                 string input = Console.ReadLine();
-                if (short.TryParse(input, out quantity))
+                if (short.TryParse(input, out quantity) && quantity >= 0 && quantity <= 500)
                     break;
                 else
-                    Console.WriteLine("Некорректный ввод. Попробуйте снова");
+                    Console.WriteLine("Некорректный ввод. Попробуйте снова (количество лепестков от 0 до 500)");
             }
             return quantity;
         }

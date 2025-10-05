@@ -8,10 +8,13 @@ namespace pract2
 {
     public enum FlowerType
     {
+        // кусты
         Rose,
+        Peony,
+        // цветы
         Tulip,
         Orchid,
-        Lily,
-        Peony
+        Lily
     }
+
 }

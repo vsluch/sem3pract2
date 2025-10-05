@@ -19,13 +19,18 @@ namespace pract2
 
         public Plant()
         {
-            type = FlowerType.Rose;
+            type = FlowerType.Tulip;
             size = new Size(20, 6);
         }
 
         public override string ToString()
         {
             return $"Растение: {type}, Высота: {size.Height}, Диаметр: {size.Diametr} ";
+        }
+
+        public FlowerType getFlowerType()
+        {
+            return type;
         }
     }
 }
